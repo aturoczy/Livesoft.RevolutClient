@@ -75,7 +75,7 @@ namespace Livesoft.Revolut
             RevolutOrderPayload payload = new RevolutOrderPayload()
             {
                 Amount = amount,
-                Currency = "EUR",
+                Currency = config.Currency,
                 CustomerId = customerId
             };
 
