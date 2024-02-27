@@ -16,7 +16,7 @@ namespace Livesoft.Revolut
 
         Task<string> CreateCustomer(string businessName, string fullName, string email, string phone);
 
-        Task DeleteCustomer(int revolutCustomerId);
+        Task DeleteCustomer(Guid revolutCustomerId);
 
         Task<string> UpdateCustomer(Guid customerId, string businessName, string fullName, string email, string phone);
     }

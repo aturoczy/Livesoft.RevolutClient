@@ -47,7 +47,7 @@ namespace Livesoft.Revolut
             }
         }
 
-        public async Task DeleteCustomer(int revolutCustomerId)
+        public async Task DeleteCustomer(Guid revolutCustomerId)
         {
             using (var httpClient = clientFactory.CreateClient())
             {
