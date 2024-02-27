@@ -8,13 +8,13 @@ namespace Livesoft.Revolut.Models.Request
         public string? FullName { get; set; }
 
         [JsonProperty("business_name")]
-        public string BusinessName { get; set; }
+        public string? BusinessName { get; set; }
 
         [JsonProperty("email")]
         public string Email { get; set; }
 
         [JsonProperty("phone")]
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
     }
 }

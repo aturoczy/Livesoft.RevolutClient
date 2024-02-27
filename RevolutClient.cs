@@ -19,7 +19,7 @@ namespace Livesoft.Revolut
             this.clientFactory = clientFactory;
 
         }
-        public async Task<string> CreateCustomer(string businessName, string email, string phone, string? fullName = null)
+        public async Task<string> CreateCustomer(string email, string? fullName = null, string? businessName = null, string? phone = null)
         {
             RevolutCustomerPayload customerPayload = new RevolutCustomerPayload()
             {
@@ -56,7 +56,7 @@ namespace Livesoft.Revolut
             }
         }
 
-        public async Task<string> UpdateCustomer(Guid customerId, string businessName, string email, string phone, string? fullName = null)
+        public async Task<string> UpdateCustomer(Guid customerId, string email, string? fullName = null, string? businessName=null, string? phone=null)
         {
             RevolutCustomerPayload customerPayload = new RevolutCustomerPayload()
             {
