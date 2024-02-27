@@ -3,6 +3,7 @@ using Livesoft.Revolut.Models.Request;
 using Livesoft.Revolut.Models.Response;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -43,6 +44,16 @@ namespace Livesoft.Revolut
                 //   httpResponseMessage.EnsureSuccessStatusCode();
                 var response = JsonConvert.DeserializeObject<RevolutCustomerResponse>(jsonResponse);
                 return response.Id;
+            }
+        }
+
+        public async Task DeleteCustomer(int revolutCustomerId)
+        {
+            using (var httpClient = clientFactory.CreateClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", config.ApiKey);
+                var httpResponseMessage = await httpClient.DeleteAsync(config.Url + "customers/" + revolutCustomerId);
+                httpResponseMessage.EnsureSuccessStatusCode();
             }
         }
 
@@ -143,5 +154,7 @@ namespace Livesoft.Revolut
                 return response;
             }
         }
+
+
     }
 }
