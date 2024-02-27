@@ -3,7 +3,7 @@
 on: ["push"]
 
 env:
- PROJECT_PATH: 'Livesoft.RevolutClient\Livesoft.RevolutClient.csproj'
+ PROJECT_PATH: 'Livesoft.RevolutClient/Livesoft.RevolutClient.csproj'
  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}/output
  NUGET_SOURCE_URL: 'https://api.nuget.org/v3/index.json'
 
@@ -18,7 +18,7 @@ jobs:
   - name: 'Install dotnet'
     uses: actions/setup-dotnet@v1
     with:
-     dotnet-verions: '8.x'
+     dotnet-verions: '8.0.x'
 
   - name: 'Restore Packages'
     run:  dotnet restore ${{ env.PROJECT_PATH }}
