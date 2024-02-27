@@ -3,7 +3,7 @@
 on: ["push"]
 
 env:
- PROJECT_PATH: 'Livesoft.RevolutClient/Livesoft.RevolutClient.csproj'
+ PROJECT_PATH: 'Livesoft.RevolutClient.csproj'
  PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}/output
  NUGET_SOURCE_URL: 'https://api.nuget.org/v3/index.json'
 
