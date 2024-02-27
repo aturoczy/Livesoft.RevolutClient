@@ -35,9 +35,11 @@ jobs:
 
   # - name: 'Pack project'
   #   run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build --configuration Release --include-symbols -p:PackageVersion=${{ steps.version.outputs.version-without-v }} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
+  #  dotnet pack Livesoft.RevolutClient.csproj --no-restore --no-build --configuration Release --include-symbols -p:PackageVersion='1.0.4'
 
   - name: 'Pack project'
     run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build --configuration Release --include-symbols --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
   
+  #  dotnet nuget push C:\Users\attil\source\repos\Livesoft.RevolutClient\bin\Release\Livesoft.RevolutClient.1.0.4.nupkg -k secret -s https://api.nuget.org/v3/index.json
   - name: 'Push package'
     run:  dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}/*.nupkg -k {{ secrets.NUGET_AUTH_TOKEN }} -s ${{ env. NUGET_SOURCE_URL }}

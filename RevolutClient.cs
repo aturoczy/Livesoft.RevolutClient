@@ -3,7 +3,6 @@ using Livesoft.Revolut.Models.Request;
 using Livesoft.Revolut.Models.Response;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
