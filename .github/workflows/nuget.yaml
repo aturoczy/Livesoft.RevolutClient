@@ -1,6 +1,9 @@
 ﻿name: "Deploy to Nuget"
 
-on: ["push"]
+on:
+ push:
+  tags:
+  - 'v*'
 
 env:
  PROJECT_PATH: 'Livesoft.RevolutClient.csproj'
@@ -25,6 +28,10 @@ jobs:
 
   - name: 'Build Project'
     run: dotnet build ${{ env.PROJECT_PATH }} --no-restore --configuration Release
+
+  - name: 'Get Version'
+    id: version
+    uses: battila7/get-version-action@v2
 
   - name: 'Pack project'
     run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build --configuration Release --include-symbols --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
