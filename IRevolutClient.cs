@@ -24,7 +24,7 @@ namespace Livesoft.Revolut
         /// <param name="businessName">The name of the customer's business.</param>
         /// <param name="phone">The phone number of the customer in E.164 format.</param>
         /// <returns></returns>
-        Task<string> CreateCustomer(string businessName, string email, string phone, string fullName = null);
+        Task<string> CreateCustomer(string email, string? businessName = null, string? phone = null, string? fullName = null);
 
         Task DeleteCustomer(Guid revolutCustomerId);
 
