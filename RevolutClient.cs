@@ -19,14 +19,14 @@ namespace Livesoft.Revolut
             this.clientFactory = clientFactory;
 
         }
-        public async Task<string> CreateCustomer(string businessName, string fullName, string email, string phone)
+        public async Task<string> CreateCustomer(string businessName, string email, string phone, string? fullName = null)
         {
             RevolutCustomerPayload customerPayload = new RevolutCustomerPayload()
             {
-                FullName = fullName,
                 BusinessName = businessName,
                 Email = email,
                 Phone = phone,
+                FullName = fullName,
             };
 
             var requestJson = JsonConvert.SerializeObject(customerPayload);
