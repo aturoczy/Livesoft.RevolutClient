@@ -56,7 +56,7 @@ namespace Livesoft.Revolut
             }
         }
 
-        public async Task<string> UpdateCustomer(Guid customerId, string businessName, string fullName, string email, string phone)
+        public async Task<string> UpdateCustomer(Guid customerId, string businessName, string email, string phone, string? fullName = null)
         {
             RevolutCustomerPayload customerPayload = new RevolutCustomerPayload()
             {
