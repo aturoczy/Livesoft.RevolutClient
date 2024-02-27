@@ -29,7 +29,7 @@ namespace Livesoft.Revolut
                 FullName = fullName,
             };
 
-            var requestJson = JsonConvert.SerializeObject(customerPayload);
+            var requestJson = JsonConvert.SerializeObject(customerPayload, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
             StringContent httpContent = new StringContent(requestJson, Encoding.UTF8, "application/json");
             //httpContent.Headers.Add("Bearer", config.ApiKey);
 
@@ -66,7 +66,7 @@ namespace Livesoft.Revolut
                 Phone = phone,
             };
 
-            var requestJson = JsonConvert.SerializeObject(customerPayload);
+            var requestJson = JsonConvert.SerializeObject(customerPayload, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
             StringContent httpContent = new StringContent(requestJson, Encoding.UTF8, "application/json");
             using (var httpClient = clientFactory.CreateClient())
             {
