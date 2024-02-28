@@ -1,6 +1,7 @@
 ﻿using Livesoft.Revolut.Models;
 using Livesoft.Revolut.Models.Request;
 using Livesoft.Revolut.Models.Response;
+using Livesoft.RevolutClient.Endpoints;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
@@ -12,72 +13,14 @@ namespace Livesoft.Revolut
     {
         private readonly RevolutConfig config;
         private readonly IHttpClientFactory clientFactory;
+        private readonly ICustomer customer;
+        public ICustomer Customer { get {  return customer; } }
 
         public RevolutClient(IOptions<RevolutConfig> options, IHttpClientFactory clientFactory)
         {
             this.config = options.Value;
             this.clientFactory = clientFactory;
-
-        }
-        public async Task<string> CreateCustomer(string email, string? fullName = null, string? businessName = null, string? phone = null)
-        {
-            RevolutCustomerPayload customerPayload = new RevolutCustomerPayload()
-            {
-                BusinessName = businessName,
-                Email = email,
-                Phone = phone,
-                FullName = fullName,
-            };
-
-            var requestJson = JsonConvert.SerializeObject(customerPayload, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
-            StringContent httpContent = new StringContent(requestJson, Encoding.UTF8, "application/json");
-            //httpContent.Headers.Add("Bearer", config.ApiKey);
-
-            using (var httpClient = clientFactory.CreateClient())
-            {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", config.ApiKey);
-
-                var httpResponseMessage = await httpClient.PostAsync(config.Url + "customers", httpContent);
-
-                var jsonResponse = await httpResponseMessage.Content.ReadAsStringAsync();
-                //   httpResponseMessage.EnsureSuccessStatusCode();
-                var response = JsonConvert.DeserializeObject<RevolutCustomerResponse>(jsonResponse);
-                return response.Id;
-            }
-        }
-
-        public async Task DeleteCustomer(Guid revolutCustomerId)
-        {
-            using (var httpClient = clientFactory.CreateClient())
-            {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", config.ApiKey);
-                var httpResponseMessage = await httpClient.DeleteAsync(config.Url + "customers/" + revolutCustomerId);
-                httpResponseMessage.EnsureSuccessStatusCode();
-            }
-        }
-
-        public async Task<string> UpdateCustomer(Guid customerId, string email, string? fullName = null, string? businessName=null, string? phone=null)
-        {
-            RevolutCustomerPayload customerPayload = new RevolutCustomerPayload()
-            {
-                FullName = fullName,
-                BusinessName = businessName,
-                Email = email,
-                Phone = phone,
-            };
-
-            var requestJson = JsonConvert.SerializeObject(customerPayload, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
-            StringContent httpContent = new StringContent(requestJson, Encoding.UTF8, "application/json");
-            using (var httpClient = clientFactory.CreateClient())
-            {
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", config.ApiKey);
-                var httpResponseMessage = await httpClient.PatchAsync(config.Url + "customers/" + customerId.ToString(), httpContent);
-
-                var jsonResponse = await httpResponseMessage.Content.ReadAsStringAsync();
-                httpResponseMessage.EnsureSuccessStatusCode();
-                var response = JsonConvert.DeserializeObject<RevolutCustomerResponse>(jsonResponse);
-                return response.Id;
-            }
+            this.customer = new Customer(clientFactory, config);
         }
 
         public async Task<RevolutOrderResponse> StartOrderProcess(int amount, string customerId)
