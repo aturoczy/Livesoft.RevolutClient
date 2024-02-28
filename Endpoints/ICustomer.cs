@@ -36,6 +36,6 @@ namespace Livesoft.RevolutClient.Endpoints
         /// </summary>
         /// <param name="revolutCustomerId"></param>
         /// <returns></returns>
-        Task<RevolutMethodDetailsResponse> RetrivePaymantMethods(Guid revolutCustomerId);
+        Task<RevolutPaymentMethodResponse> RetrivePaymantMethods(Guid revolutCustomerId);
     }
 }
