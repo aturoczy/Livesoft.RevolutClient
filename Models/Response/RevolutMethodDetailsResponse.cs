@@ -18,7 +18,7 @@ namespace Livesoft.RevolutClient.Models.Response
 
         [JsonProperty("expiry_year")]
         //The expiry year of the payment card.
-        public int ExpireYear { get; set; }
+        public int ExpiryYear { get; set; }
 
         [JsonProperty("billing_address")]
         //The billing address of the payment method.
