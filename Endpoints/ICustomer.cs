@@ -37,5 +37,14 @@ namespace Livesoft.RevolutClient.Endpoints
         /// <param name="revolutCustomerId"></param>
         /// <returns></returns>
         Task<RevolutPaymentMethodResponse[]> RetrivePaymantMethods(Guid revolutCustomerId);
+
+        /// <summary>
+        /// Delete a specific payment method. The payment method is completely deleted from the customer payment methods.
+        /// To reuse the payment method that is deleted, direct your customer to the checkout page and save the card details again.
+        /// </summary>
+        /// <param name="revolutCustomerId">The ID of the customer.</param>
+        /// <param name="paymentMethodId">The ID of the payment method.</param>
+        /// <returns></returns>
+        Task DeletePaymentMethod(Guid revolutCustomerId,  Guid paymentMethodId);
     }
 }

@@ -3,7 +3,6 @@ using Livesoft.Revolut.Models.Request;
 using Livesoft.Revolut.Models.Response;
 using Livesoft.RevolutClient.Models.Response;
 using Newtonsoft.Json;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -14,7 +13,6 @@ namespace Livesoft.RevolutClient.Endpoints
         private const string endpoint = "customers";
         private readonly IHttpClientFactory clientFactory;
         private readonly RevolutConfig config;
-
 
         public Customer(IHttpClientFactory clientFactory, RevolutConfig config)
         {
@@ -64,6 +62,16 @@ namespace Livesoft.RevolutClient.Endpoints
             {
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", config.ApiKey);
                 var httpResponseMessage = await httpClient.DeleteAsync(config.Url + endpoint + "/" + revolutCustomerId);
+                httpResponseMessage.EnsureSuccessStatusCode();
+            }
+        }
+
+        public async Task DeletePaymentMethod(Guid revolutCustomerId, Guid paymentMethodId)
+        {
+            using (var httpClient = clientFactory.CreateClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", config.ApiKey);
+                var httpResponseMessage = await httpClient.DeleteAsync(config.Url + endpoint + "/" + revolutCustomerId + "/payment-methods/" + paymentMethodId);
                 httpResponseMessage.EnsureSuccessStatusCode();
             }
         }
