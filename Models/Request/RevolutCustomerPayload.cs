@@ -11,7 +11,7 @@ namespace Livesoft.Revolut.Models.Request
         public string? BusinessName { get; set; }
 
         [JsonProperty("email")]
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
         [JsonProperty("phone")]
         public string? Phone { get; set; }

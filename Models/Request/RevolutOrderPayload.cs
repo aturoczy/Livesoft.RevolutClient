@@ -8,9 +8,9 @@ namespace Livesoft.Revolut.Models.Request
         public int Amount { get; set; }
 
         [JsonProperty("currency")]
-        public string Currency { get; set; }
+        public required string Currency { get; set; }
 
         [JsonProperty("customer_id")]
-        public string CustomerId { get; set; }
+        public required string CustomerId { get; set; }
     }
 }

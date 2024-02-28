@@ -1,6 +1,7 @@
 ﻿using Livesoft.Revolut.Models;
 using Livesoft.Revolut.Models.Request;
 using Livesoft.Revolut.Models.Response;
+using Livesoft.RevolutClient.Models.Response;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
@@ -64,6 +65,11 @@ namespace Livesoft.RevolutClient.Endpoints
                 var httpResponseMessage = await httpClient.DeleteAsync(config.Url + endpoint + "/" + revolutCustomerId);
                 httpResponseMessage.EnsureSuccessStatusCode();
             }
+        }
+
+        public Task<RevolutMethodDetailsResponse> RetrivePaymantMethods(Guid revolutCustomerId)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<string> UpdateCustomer(Guid customerId, string email, string? fullName = null, string? businessName = null, string? phone = null)

@@ -1,4 +1,6 @@
 ﻿
+using Livesoft.RevolutClient.Models.Response;
+
 namespace Livesoft.RevolutClient.Endpoints
 {
     public interface ICustomer
@@ -20,12 +22,20 @@ namespace Livesoft.RevolutClient.Endpoints
         /// Update a customer
         /// https://developer.revolut.com/docs/merchant/update-customer
         /// </summary>
-        /// <param name="customerId">Revolut Customer Id</param>
+        /// <param name="revolutCustomerId">Revolut Customer Id</param>
         /// <param name="email">The email address of the customer. This value must be unique for each customer for one merchant. If the email address matches an existing customer, an error is returned.</param>
         /// <param name="fullName">The full name of the customer. If full_name is not specified, this value is taken from the cardholder_name the first time a payment is made.</param>
         /// <param name="businessName">The name of the customer's business.</param>
         /// <param name="phone">The phone number of the customer in E.164 format.</param>
         /// <returns>Revolut Customer Id</returns>
-        Task<string> UpdateCustomer(Guid customerId, string email, string? fullName = null, string? businessName = null, string? phone = null);
+        Task<string> UpdateCustomer(Guid revolutCustomerId, string email, string? fullName = null, string? businessName = null, string? phone = null);
+
+
+        /// <summary>
+        /// Retrieve all the payment methods for a specific customer.
+        /// </summary>
+        /// <param name="revolutCustomerId"></param>
+        /// <returns></returns>
+        Task<RevolutMethodDetailsResponse> RetrivePaymantMethods(Guid revolutCustomerId);
     }
 }
