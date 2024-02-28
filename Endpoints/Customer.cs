@@ -3,6 +3,7 @@ using Livesoft.Revolut.Models.Request;
 using Livesoft.Revolut.Models.Response;
 using Livesoft.RevolutClient.Models.Response;
 using Newtonsoft.Json;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -67,9 +68,18 @@ namespace Livesoft.RevolutClient.Endpoints
             }
         }
 
-        public Task<RevolutMethodDetailsResponse> RetrivePaymantMethods(Guid revolutCustomerId)
+        public async Task<RevolutMethodDetailsResponse> RetrivePaymantMethods(Guid revolutCustomerId)
         {
-            throw new NotImplementedException();
+            using (var httpClient = clientFactory.CreateClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", config.ApiKey);
+                var httpResponseMessage = await httpClient.GetAsync(config.Url + endpoint + "/" + revolutCustomerId + "/payment-methods");
+
+                var jsonResponse = await httpResponseMessage.Content.ReadAsStringAsync();
+                //   httpResponseMessage.EnsureSuccessStatusCode();
+                var response = JsonConvert.DeserializeObject<RevolutMethodDetailsResponse>(jsonResponse);
+                return response;
+            }
         }
 
         public async Task<string> UpdateCustomer(Guid customerId, string email, string? fullName = null, string? businessName = null, string? phone = null)
