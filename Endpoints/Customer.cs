@@ -76,6 +76,20 @@ namespace Livesoft.RevolutClient.Endpoints
             }
         }
 
+        public async Task<RevolutPaymentMethodResponse> RetrivePaymantMethod(Guid revolutCustomerId, Guid paymentMethodId)
+        {
+            using (var httpClient = clientFactory.CreateClient())
+            {
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", config.ApiKey);
+                var httpResponseMessage = await httpClient.GetAsync(config.Url + endpoint + "/" + revolutCustomerId + "/payment-methods/" + paymentMethodId);
+
+                var jsonResponse = await httpResponseMessage.Content.ReadAsStringAsync();
+                //   httpResponseMessage.EnsureSuccessStatusCode();
+                var response = JsonConvert.DeserializeObject<RevolutPaymentMethodResponse>(jsonResponse);
+                return response;
+            }
+        }
+
         public async Task<RevolutPaymentMethodResponse[]> RetrivePaymantMethods(Guid revolutCustomerId)
         {
             using (var httpClient = clientFactory.CreateClient())
