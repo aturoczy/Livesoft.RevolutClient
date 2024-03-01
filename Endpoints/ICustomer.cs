@@ -16,6 +16,11 @@ namespace Livesoft.RevolutClient.Endpoints
         /// <returns></returns>
         Task<string> CreateCustomer(string email, string? businessName = null, string? phone = null, string? fullName = null);
 
+        /// <summary>
+        /// Delete the profile of a specific customer.
+        /// </summary>
+        /// <param name="revolutCustomerId">The ID of the customer.</param>
+        /// <returns></returns>
         Task DeleteCustomer(Guid revolutCustomerId);
 
         /// <summary>
@@ -29,7 +34,6 @@ namespace Livesoft.RevolutClient.Endpoints
         /// <param name="phone">The phone number of the customer in E.164 format.</param>
         /// <returns>Revolut Customer Id</returns>
         Task<string> UpdateCustomer(Guid revolutCustomerId, string email, string? fullName = null, string? businessName = null, string? phone = null);
-
 
         /// <summary>
         /// Retrieve all the payment methods for a specific customer.
